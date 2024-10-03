@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .sidebar h1 {
+            font-size: 24px;
+            margin: 0 0 20px;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            width: calc(100% - 250px);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="sidebar">
+        <a href="{{ url_for('student') }}">Students</a>
+        <a href="employee.html">Employees</a>
+        <a href="add.html">Add User</a>
+        <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+    </div>
+    <div class="content">
+        <h1 id="add-student">Add Student Details</h1>
+        <form action="{{ url_for('student') }}" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="section">Section:</label>
+            <input type="text" id="section" name="section" required><br><br>
+            <label for="course">Course:</label>
+            <input type="text" id="course" name="course" required><br><br>
+            <label for="year_graduated">Year Graduated:</label>
+            <input type="number" id="year_graduated" name="year_graduated" required><br><br>
+            <label for="awards">Awards:</label>
+            <input type="text" id="awards" name="awards">
+            <input type="text" id="awards" name="awards"><br><br>
+            <input type="submit" value="Add Student">
+        </form>
+
+        <h2 id="upload-csv">Upload CSV File</h2>
+        <form action="{{ url_for('student') }}" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".csv" required>
+            <input type="submit" value="Upload CSV">
+        </form>
+
+        <h2 id="student-list">Student List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Section</th>
+                    <th>Course</th>
+                    <th>Year Graduated</th>
+                    <th>Awards</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student['id'] }}</td>
+                    <td>{{ student['name'] }}</td>
+                    <td>{{ student['section'] }}</td>
+                    <td>{{ student['course'] }}</td>
+                    <td>{{ student['year_graduated'] }}</td>
+                    <td>{{ student['awards'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

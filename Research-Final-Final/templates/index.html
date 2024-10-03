@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/styles.css" rel="stylesheet">
+</head>
+{% block body %}
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center my-3">
+            <h1>Camera</h1>
+            <a href="{{ url_for('login') }}" class="btn btn-outline-success">Login</a>
+        </div>
+        <div class="video-container">
+            <video autoplay="true" id="videoElement" width="320" height="240"></video>
+        </div>
+        <div class="text-center">
+            <form action="{{ url_for('scanner') }}" method="POST">
+                <input type="hidden"  id="text" name="text">
+                <button onclick="snapshot()" type="submit" class="btn btn-success" name="scan">Scan Image</button>
+                
+            </form>
+        </div>
+    </div>
+    <canvas id="canvas"></canvas>
+    <h6>DB: {{ value }}</h6>
+    <h6>py: {{ val }}</h6>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+{% endblock body %}
+</html>
+
+{% include "camera.html" %}
